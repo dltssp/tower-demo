@@ -1,0 +1,26 @@
+---
+- hosts: vultr-nodes
+  become: yes
+  gather_facts: True
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+      tags: installed
+
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
+      tags: installed
+
+    - name: remove httpd
+      yum:
+        name: httpd
+        state: absent
+      register: httpd_removed
+
+
+    - name: debug
+      debug: msg={{ httpd_removed }}

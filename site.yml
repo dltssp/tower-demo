@@ -1,0 +1,14 @@
+---
+- hosts: vultr-nodes
+  become: yes
+  gather_facts: True
+  tasks:
+    - name: install httpd
+      yum:
+        name: httpd
+        state: present
+
+    - name: restart httpd
+      service:
+        name: httpd
+        state: restarted
